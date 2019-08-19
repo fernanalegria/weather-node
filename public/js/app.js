@@ -5,12 +5,13 @@ const messsageTwo = document.querySelector("#message-2");
 
 weatherForm.addEventListener("submit", e => {
   e.preventDefault();
+
   const address = searchInput.value;
-  const url = new URL("http://localhost:3000/weather");
-  url.searchParams.append("address", address);
+
   messsageOne.textContent = "Loading...";
   messsageTwo.textContent = "";
-  fetch(url).then(response => {
+
+  fetch(`/weather?address=${encodeURIComponent(address)}`).then(response => {
     response.json().then(data => {
       if (!data.error) {
         messsageOne.textContent = data.location;
